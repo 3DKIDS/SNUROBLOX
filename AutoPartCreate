@@ -1,0 +1,11 @@
+		--파트Y축과 Z축 이동 크기에 맞게 반복 생성하기
+		for ycount = 0, 5, 0.5 do
+			for zcount = 0, 10, 2 do 
+				print("파트 자동 생성 벽 만들기~~~")
+			    local partA = Instance.new("Part", workspace)
+			  	partA.Name = "PartA"
+					partA.Position = Vector3.new(-43 , 2.5 + ycount, -123 + zcount)
+					partA.Anchored = false
+					partA.BrickColor = BrickColor.new("Really blue")
+			end	
+		end
