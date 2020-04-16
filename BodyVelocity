@@ -1,0 +1,25 @@
+script.Parent.MaxForce = Vector3.new(math.huge,math.huge, math.huge)
+
+while true do
+	
+	script.Parent.script.Parent.MaxForce = Vector3.new(math.huge,math.huge, math.huge)
+
+while true do
+	
+	script.Parent.Velocity = Vector3.new(-100,0,0)
+	wait(3)
+	script.Parent.Velocity = Vector3.new(0,0,-100)
+	wait(3)
+	script.Parent.Velocity = Vector3.new(100,0,0)
+	wait(3)
+	script.Parent.Velocity = Vector3.new(0,0,100)
+	wait(3)
+end = Vector3.new(-100,0,0)
+	wait(3)
+	script.Parent.Velocity = Vector3.new(0,0,-100)
+	wait(3)
+	script.Parent.Velocity = Vector3.new(100,0,0)
+	wait(3)
+	script.Parent.Velocity = Vector3.new(0,0,100)
+	wait(3)
+end
