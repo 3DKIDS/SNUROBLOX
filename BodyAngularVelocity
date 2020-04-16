@@ -5,4 +5,4 @@ part.MaxTorque = Vector3.new(math.huge,math.huge,math.huge)
 --part.AngularVelocity = Vector3.new(0,1,0)
 
 --Y축 기준으로 1초에 1바퀴 회전
-part.AngularVelocity = Vector3.new(0,1,0) * math.rad(360  
+part.AngularVelocity = Vector3.new(0,1,0) * math.rad(360)
