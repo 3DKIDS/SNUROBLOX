@@ -1,0 +1,6 @@
+local part = script.Parent
+
+
+part.MaxTorque = Vector3.new(math.huge,math.huge,math.huge)
+--part.AngularVelocity = Vector3.new(0,1,0)
+part.AngularVelocity = Vector3.new(0,1,0) * math.rad(360)
