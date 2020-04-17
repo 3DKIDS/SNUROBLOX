@@ -1,0 +1,13 @@
+
+wait(5)
+
+local bodygyro = script.Parent
+
+while true do
+	bodygyro.CFrame = CFrame.Angles(math.rad(45),0,0)
+	wait(2)
+	bodygyro.CFrame = CFrame.Angles(0,math.rad(45),0)
+	wait(2)
+	bodygyro.CFrame = CFrame.Angles(0,0,math.rad(45))
+	wait(2)
+end
