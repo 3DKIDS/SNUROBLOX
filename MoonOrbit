@@ -1,9 +1,9 @@
-local center = workspace.Earth
+local center = game.Workspace.WithSun.Earth
 local moon = script.Parent
 
 -- You may edit these variables
 local ORBIT_TIME = 2
-local RADIUS = 10
+local RADIUS = 4*4
 local ECLIPSE = 0.5 --50% as small radius on the short side, if 1 it's a perfect circle
 local ROTATION = CFrame.Angles(0,0,0) --Rotate which direction to rotate around
 
