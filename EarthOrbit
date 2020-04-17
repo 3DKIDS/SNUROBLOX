@@ -1,5 +1,7 @@
-local center = workspace.Sun
-local moon = script.Parent
+
+local withsun = game.Workspace.WithSun
+local center =  withsun.Sun
+local earth = script.Parent
 
 -- You may edit these variables
 local ORBIT_TIME = 10
@@ -17,5 +19,5 @@ local runservice = game:GetService('RunService')
 local rot = 0
 game:GetService('RunService').Stepped:connect(function(t, dt)
 	rot = rot + dt * ROTSPEED
-	moon.CFrame = ROTATION * CFrame.new(sin(rot)*ECLIPSE, 0, cos(rot)*RADIUS) + center.Position
+	earth.CFrame = ROTATION * CFrame.new(sin(rot)*ECLIPSE, 0, cos(rot)*RADIUS) + center.Position
 end)
