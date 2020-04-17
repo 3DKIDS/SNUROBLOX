@@ -1,0 +1,21 @@
+local center = workspace.Earth
+local moon = script.Parent
+
+-- You may edit these variables
+local ORBIT_TIME = 2
+local RADIUS = 10
+local ECLIPSE = 0.5 --50% as small radius on the short side, if 1 it's a perfect circle
+local ROTATION = CFrame.Angles(0,0,0) --Rotate which direction to rotate around
+
+-- But not these
+local sin, cos = math.sin, math.cos
+local ROTSPEED = math.pi*2/ORBIT_TIME
+ECLIPSE = ECLIPSE * RADIUS
+local runservice = game:GetService('RunService')
+
+-- There are many ways to run this loop, you could do while true do if you want, if so use this: rot = rot + wait() * ROTSPEED 
+local rot = 0
+game:GetService('RunService').Stepped:connect(function(t, dt)
+	rot = rot + dt * ROTSPEED
+	moon.CFrame = ROTATION * CFrame.new(sin(rot)*ECLIPSE, 0, cos(rot)*RADIUS) + center.Position
+end)
