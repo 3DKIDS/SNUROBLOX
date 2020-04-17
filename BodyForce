@@ -1,0 +1,8 @@
+wait(10)
+
+local bodyforce = script.Parent
+local magnitude = 100
+-- You could also use Vector3.FromNormalId(Enum.NormalId.Left)
+local left = Vector3.new(-1, 0, 0) * magnitude 
+
+bodyforce.Force = bodyforce.Parent.CFrame:VectorToWorldSpace(left)
