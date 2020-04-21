@@ -1,5 +1,5 @@
 -- 다른 스페이스 아이디
-local PlaceID = 4799194775
+local PlaceID =  2261279727
 
 -- 파트에 터치되면 텔리포팅 기능 가동
 script.Parent.Touched:Connect(function(hit)
