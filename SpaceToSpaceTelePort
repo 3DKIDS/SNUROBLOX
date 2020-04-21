@@ -1,3 +1,6 @@
+-- 텔리포팅 서비스 
+local TelePortService = game:GetService("TeleportService")
+
 -- 다른 스페이스 아이디
 local PlaceID =  2261279727
 
