@@ -1,17 +1,25 @@
 -- 텔리포팅 서비스 
 local TelePortService = game:GetService("TeleportService")
 
+portA = script.Parent
+canTeleport = portA.Value.Value
+
 -- 다른 스페이스 아이디
 local PlaceID =  2261279727
 
 -- 파트에 터치되면 텔리포팅 기능 가동
-script.Parent.Touched:Connect(function(hit)
-   -- 플레이어 정보 가져오기
+
+portA.Touched:Connect(function(hit)
+	 -- 플레이어 정보 가져오기
 	 local player = game.Players:GetPlayerFromCharacter(hit.parent)
-	 
-  --플레이어 정보가 확인되었다면 텔리포팅 시작
-	if player then
+	
+	if canTeleport == true and  player ~= nil then
+		canTeleport = false
+		wait(0.2)
 		print(player)
 		TelePortService:Teleport(PlaceID, player)
+		wait(1)
+		canTeleport = true
 	end
+  
 end)
