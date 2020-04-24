@@ -1,0 +1,45 @@
+local HttpService = game:GetService("HttpService")
+ 
+-- Where is the International Space Station right now?
+local URL_ISS = "여러분의 인증 주소"
+ 
+local function printISS()
+	local response
+	local data
+	-- Use pcall in case something goes wrong
+	pcall(function ()
+		response = HttpService:GetAsync(URL_ISS)
+		data = HttpService:JSONDecode(response)
+	end)
+	-- Did our request fail or our JSON fail to parse?
+	if not data then return false end
+	
+	--요청한 날씨 json 정보가 제대로 들어모면 데이타 읽기
+	if data.cod == 200  then
+		
+      print("200 ok")
+			for i, w in pairs(data.main) do
+				print( i .. " 서울지역 " .. w )
+				if i == "temp" then
+					-- F to C온도 변환
+					local cTemp = (w - 32) / 1.8 
+					game.Workspace.WeatherInfo.Temp.SurfaceGui.TextLabel.Text = "온도: " .. tostring(cTemp) .. "C"
+				end
+				if i == "humidity" then
+					-- F to C온도 변환
+					local cHumi = (w - 32) / 1.8
+					game.Workspace.WeatherInfo.Temp.SurfaceGui.TextLabel.Text = "습도: " .. tostring(cHumi) 
+				end
+				
+			end
+			return true
+		--end
+	end
+	return false
+end
+ 
+if printISS() then
+	print("날씨 정보 가져오기")
+else
+	print("날씨 정보 에러 ")
+end
