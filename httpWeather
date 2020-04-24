@@ -21,8 +21,8 @@ local function printISS()
 			for i, w in pairs(data.main) do
 				print( i .. " 서울지역 " .. w )
 				if i == "temp" then
-					-- F to C온도 변환
-					local cTemp = (w - 32) / 1.8 
+					-- k to C온도 변환
+					local cTemp = w - 273
 					cTemp = math.ceil(cTemp)
 					game.Workspace.WeatherInfo.Temp.SurfaceGui.TextLabel.Text = "온도: " .. tostring(cTemp) .. "C"
 				end
