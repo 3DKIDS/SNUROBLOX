@@ -1,0 +1,93 @@
+local HttpService = game:GetService("HttpService")
+
+--시간전환 모듈불러오기
+local TimeMD = require(game.ServerStorage.TimeModule)
+ 
+-- 여러분이 원하는 지역 날씨 가져오기 지역좌표로 JSON데이타 가져오기
+local URL_ISS = "https://api.openweathermap.org/data/2.5/onecall?lat=37.57&lon=126.98&appid=b707058b7308d6719153f1ed6fa1f6dc"
+ 
+local function printISS()
+	local response
+	local data
+	-- Use pcall in case something goes wrong
+	pcall(function ()
+		response = HttpService:GetAsync(URL_ISS)
+		data = HttpService:JSONDecode(response)
+	end)
+	-- Did our request fail or our JSON fail to parse?
+	if not data then return false end
+	
+	--요청한 날씨 json 정보가 제대로 들어모면 데이타 읽기
+	
+	if data.timezone == "Asia/Seoul" then
+		
+      print("200 ok")
+			for i, w in pairs(data.hourly) do
+				--print(i, type(w), w)
+				print(i .. "timestamp:")
+				print(w.dt)
+				local wt = TimeMD.timeLabel(w.dt)
+				
+				-- 시간별 라벨 뿌려주기 절대좌표로 가져왔어요
+				game.Workspace.Graph.Body.SurfaceGui.TimeLabel[i].Text = wt
+				
+				--온도변환하기
+				local cTemp = w.temp - 273
+					  cTemp = math.ceil(cTemp)
+					
+				--왼쪽 여백 구하기 일차방정식 사용
+				local leftX = ( i * 100 ) - 50
+				  
+				-- 온도와 좌표가 반대로 표현되니 
+				local leftY = 400 - ((cTemp * 400) / 50)
+				-- 온도 위치 좌표 표시
+						game.Workspace.Graph.Body.SurfaceGui.Points[i].Position = UDim2.new(0, leftX, 0, leftY)
+						game.Workspace.Graph.Body.SurfaceGui.Points[i].TextLabel.Text = cTemp
+						
+				print(cTemp)
+				
+				if i >= 10 then
+					return true
+				end
+			end
+			--return true
+		--end
+	end
+	return false
+end
+ 
+if printISS() then
+	print("날씨 정보 가져오기")
+	
+	-- 이제 새로 부여된 포인트의 좌표값을 기반으로 선그리기 시작 !!
+	
+	local Graph = game.Workspace.Graph.Body.SurfaceGui
+	local Points = Graph.Points
+	local Segments =Graph.Segments
+	
+	-- 포인트 폴더의 리스트를 가져와서 offset 부여하기
+	for i,v in pairs(Points:GetChildren()) do
+		v.Position = UDim2.new(0,v.Position.X.Offset, 0, v.Position.Y.Offset)
+	end
+	
+	-- 그리고 앞포인트와 뒤포인트의 위치를 서로 그려준다
+	function drawPath(StartPoint, EndPoint)
+		local startX, startY = StartPoint.Position.X.Offset, StartPoint.Position.Y.Offset
+		local endX, endY = EndPoint.Position.X.Offset, EndPoint.Position.Y.Offset
+		local Line = Instance.new("Frame")
+		Line.AnchorPoint = Vector2.new(0.5, 0.5)
+		Line.Size = UDim2.new(0, ((endX - startX) ^ 2 + (endY - startY) ^ 2) ^ 0.5, 0, 5) 
+		Line.Position = UDim2.new(0, (startX + endX) / 2, 0, (startY + endY) / 2) 
+		Line.Rotation = math.atan2(endY - startY, endX - startX) * (180 / math.pi)
+		Line.Parent = Segments
+	end
+	
+	for i,v in pairs(Points:GetChildren()) do
+		if i == #Points:GetChildren() then return end
+		local FirstPoint = Points[tostring(i)]
+		local SecondPoint = Points[tostring(i+1)]
+		drawPath(FirstPoint,SecondPoint)
+	end
+else
+	print("날씨 정보 에러 ")
+end
