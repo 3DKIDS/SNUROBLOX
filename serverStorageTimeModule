@@ -1,0 +1,39 @@
+--Unix timestamp를 스트링으로 반환 해주기 --
+
+local time_module = {}
+
+
+function  time_module.timeLabel(tinfo)
+	local y,m,d,h,m,s,chkTime
+	--시간존이 서버와 로컬 차이가 시차적용 9시간적용
+	local utc = 9*3600
+	local wTime = os.date("*t", tinfo + utc)
+	
+	for k, v in pairs(wTime) do
+		
+		if (k == "year") then
+			y = v 
+		end
+		if (k == "month") then
+			m = v
+		end
+		if (k == "day") then
+			d = v 
+		end
+		if (k == "hour") then
+			h = v 
+		end
+		if (k == "min") then
+			m = v 
+		end
+		if (k == "sec") then
+			s = v 
+		end
+		
+	end
+
+	chkTime = y .. "-" .. m .. "-" .. d .. " " .. h .. ":00"
+	return chkTime
+end
+
+return time_module
