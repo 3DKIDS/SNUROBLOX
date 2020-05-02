@@ -4,7 +4,7 @@ local HttpService = game:GetService("HttpService")
 local TimeMD = require(game.ServerStorage.TimeModule)
  
 -- 여러분이 원하는 지역 날씨 가져오기 지역좌표로 JSON데이타 가져오기
-local URL_ISS = "https://api.openweathermap.org/data/2.5/onecall?lat=37.57&lon=126.98&appid=b707058b7308d6719153f1ed6fa1f6dc"
+local URL_ISS = "https://api.openweathermap.org/data/2.5/onecall?lat=37.57&lon=126.98&appid=여러분의인증키"
  
 local function printISS()
 	local response
